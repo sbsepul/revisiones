@@ -22,24 +22,16 @@ def get_total(puntaje: str):
     return puntaje.replace("Total: ", "").replace(",", ".")
 
 
-def excel_a_string(excel_filename: str) -> Tuple[str, str]:
-    """ Convierte la rúbrica a una tupla fácil de pasar a un archivo .txt
-
-    :param excel_filename: el nombre del excel con la rúbrica
-    :return: una tupla con el nombre del alumno y los comentarios de revisión
-    """
-    revision = ""
-    nombre_alumno = ""
-    nota = ""
-    a = pd.read_excel(excel_filename, header=None)
-    for index, row in a.iterrows():
+def excel_sheet(data, revision, nombre_alumno, nota):
+    #print(data.head())
+    for index, row in data.iterrows():
         if index == INDICE_NOMBRE_ALUMNO:
             nombre_alumno = f"{row[1]}"
         item = row[0]
 
         # Puntajes totales de las subsecciones
         if item in SUBSEC_CODIGO_FUENTE:
-            revision += "\n" + "=" * 80 + f"\n{item}: {row[2]} / {get_total(row[3])}\n" \
+            revision += "\n" + "=" * 80 + f"\n{item}: {round(row[2], 2)} / {get_total(row[3])}\n" \
                         + "=" * 80 + "\n"
         # Puntajes totales de las secciones
         elif item in SECCIONES:
@@ -66,9 +58,33 @@ def excel_a_string(excel_filename: str) -> Tuple[str, str]:
     return nombre_alumno, f"Alumno: {nombre_alumno}\nNota: {nota}\n\n{revision}"
 
 
-if __name__ == '__main__':
-    NOMBRE_ALUMNO, REVISION = excel_a_string(f"Rubrica_T1.xlsx")
+def excel_a_string(excel_filename: str) -> Tuple[str, str]:
+    """ Convierte la rúbrica a una tupla fácil de pasar a un archivo .txt
 
-    with open(f"Comentarios {NOMBRE_ALUMNO}.txt", "w+",
-              encoding='utf-8') as comentarios_alumno:
-        comentarios_alumno.write(REVISION)
+    :param excel_filename: el nombre del excel con la rúbrica
+    :return: una tupla con el nombre del alumno y los comentarios de revisión
+    """
+    
+    revision_alumno = []
+    a = pd.read_excel(excel_filename, header=None)
+    xl = pd.ExcelFile(excel_filename)
+    for sheet in xl.sheet_names:
+        revision = ""
+        nombre_alumno = ""
+        nota = ""
+        df = xl.parse(sheet, header=None)
+        nombre_alumno, revision = excel_sheet(df, revision, nombre_alumno, nota)
+        revision_alumno.append([nombre_alumno, revision])
+    return revision_alumno
+    '''
+    
+    '''
+
+if __name__ == '__main__':
+    ALUMNOS = excel_a_string(f"Rubrica_T1.xlsx")
+    for alumno in ALUMNOS:
+        NOMBRE_ALUMNO, REVISION = alumno
+        print(NOMBRE_ALUMNO)
+        with open(f"Comentarios {NOMBRE_ALUMNO}.txt", "w+",
+                  encoding='utf-8') as comentarios_alumno:
+            comentarios_alumno.write(REVISION)
