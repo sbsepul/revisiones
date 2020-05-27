@@ -15,7 +15,7 @@ COMENTARIOS = ("Comentarios", "Corrector")
 SEC_ADICIONALES = "Adicionales"
 COVERAGE = "Porcentaje de coverage"
 ROOT = Path(os.path.dirname(os.path.realpath(__file__)))
-
+DIRECTORY_COMMENTS = "comentarios/"
 
 def get_total(puntaje: str):
     """ Borra el substring `Total: ` del puntaje """
@@ -81,10 +81,16 @@ def excel_a_string(excel_filename: str) -> Tuple[str, str]:
     '''
 
 if __name__ == '__main__':
+    if not os.path.exists(os.path.dirname(DIRECTORY_COMMENTS)):
+        try:
+            os.makedirs(os.path.dirname(DIRECTORY_COMMENTS))
+        except OSError as exc: # Guard against race condition
+            if exc.errno != errno.EEXIST:
+                raise
+
     ALUMNOS = excel_a_string(f"Rubrica_T1.xlsx")
     for alumno in ALUMNOS:
         NOMBRE_ALUMNO, REVISION = alumno
-        print(NOMBRE_ALUMNO)
-        with open(f"Comentarios {NOMBRE_ALUMNO}.txt", "w+",
+        with open(f"{DIRECTORY_COMMENTS}Comentarios {NOMBRE_ALUMNO}.txt", "w+",
                   encoding='utf-8') as comentarios_alumno:
             comentarios_alumno.write(REVISION)
