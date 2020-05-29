@@ -16,6 +16,7 @@
 import argparse
 import zipfile as zf
 import os
+from os import listdir
 
 # for .gitignore
 DIRECTORY_OUTPUT = "output/"
@@ -27,6 +28,8 @@ def get_args():
                     help='directory output where zip that will be unzippped')
 	parser.add_argument('--dir_in', default=None,
                     help='directory input where is the file zip')
+	parser.add_argument('--dir_main', default=None,
+                    help='directory of students')
 	return parser.parse_args()
 
 
@@ -58,6 +61,27 @@ def unzip_file(file_zip, dir_out, dir_in):
 			create_dir(path)
 			zip_ref.extract(pdf_file, path)
 
+def unzip_in_drectory(file_zip, directory_main):
+	dir_all_students = f"{DIRECTORY_OUTPUT}{directory_main}"
+	directories = [f for f in listdir(dir_all_students)]
+	for student_dir in directories:
+		check_student = False
+		full_path = f"{dir_all_students}/{student_dir}/"
+		for file in listdir(full_path):
+			if(file.endswith(".zip")):
+				check_student = True
+				full_file = f"{full_path}{file}"
+				try:
+					with zf.ZipFile(full_file, 'r') as zip_ref:
+						zip_ref.extractall(full_path)
+				except:
+					next
+		if(not check_student):
+			print(f"{student_dir[:-1]} falta")
+
 if __name__ == '__main__':
 	args = get_args()
-	unzip_file(args.file, args.dir_out, args.dir_in)
+	if(args.dir_main):
+		unzip_in_drectory(args.file, args.dir_main)
+	else:
+		unzip_file(args.file, args.dir_out, args.dir_in)
