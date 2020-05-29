@@ -7,18 +7,22 @@ Nota: 5.2
 
 (1.1) Unidades muertas pueden atacar: -0.1x1 = -0.1
 Detalle: No hay test
+	 
 
 (1.2) Se puede atacar unidades muertas: -0.1x1 = -0.1
 Detalle: No hay test
+	 
 
 ================================================================================
 (2) Diseño: 1.4 / 2.5
 
 (2.1) No utiliza double dispatch para decidir la cantidad de estrellas/victorias en caso de ganar un combate: -0.8x1 = -0.8
-Detalle: nan
+Detalle: No aplica
+	 
 
 (2.2) Enemigos no comparten una interfaz o clase abstracta común (sepadara de player): -0.3x1 = -0.3
-Detalle: nan
+Detalle: No aplica
+	 
 
 ================================================================================
 (3) Código Fuente: 2.7 / 4
@@ -29,11 +33,12 @@ Detalle: nan
 ================================================================================
 (5) Javadoc: 0.5 / 0.5
 
-(5.1) Falta readme: -0.5x1 = -0.5
-Detalle: README no es explicativo
-
 ================================================================================
 (6) Resumen: 0 / 0.5
+
+(6.1) Falta readme: -0.5x1 = -0.5
+Detalle: README no es explicativo
+	 
 
 ================================================================================
 Adicionales: 0

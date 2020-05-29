@@ -6,6 +6,7 @@ from pathlib import Path
 
 import os
 import pandas as pd
+from textwrap import wrap
 
 DIRECTORY_TEST = "files/"
 
@@ -59,7 +60,12 @@ def excel_sheet(data, revision, nombre_alumno, nota) -> Tuple[str, str]:
             else:
                 item_count += 1
                 revision += f"\n({value_item}.{item_count}) {row[0]}: {row[1]}x{row[2]} = {row[3]}"
-                revision += f"\nDetalle: {row[4]}\n"
+                if (not pd.isna(row[4])):
+                    separate = wrap(row[4], 60)
+                else:
+                    separate = ["No aplica"]
+                detalle = separate[0] + "\n\t " + "\n\t ".join(separate[1:])
+                revision += f"\nDetalle: {detalle}\n"
     if not nombre_alumno:
         print(f"Falta nombre del alumno en hoja {index+1}")
         #raise Exception("Falta nombre del alumno!!")
