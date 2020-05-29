@@ -1,0 +1,49 @@
+Alumno: Jimenez_Da_Fonseca__Marcelo_Enrrique
+Nota: 5.2
+
+
+================================================================================
+(1) Funcionalidad: 1.3 / 1.5
+
+(1.1) Unidades muertas pueden atacar: -0.1x1 = -0.1
+Detalle: No hay test
+
+(1.2) Se puede atacar unidades muertas: -0.1x1 = -0.1
+Detalle: No hay test
+
+================================================================================
+(2) Diseño: 1.87 / 2.5
+
+(2.1) Código duplicado: -0.5x0.5 = -0.25
+Detalle: en todos los Characters tienes codigo que se repite en receiveUnitAttack
+
+(2.2) Usa clase abstracta como tipo: -0.4x0.2 = -0.08000000000000002
+Detalle: Cuidado con el equals en el Abstract, usas abstact como tipo
+
+(2.3) Enemigos no comparten una interfaz o clase abstracta común (sepadara de player): -0.3x1 = -0.3
+Detalle: nan
+
+================================================================================
+(3) Código Fuente: 3.17 / 4
+
+================================================================================
+(4) Coverage: 1 / 1
+
+(4.1) Error de documentación (ponderar por cantidad): -0.05x10 = -0.5
+Detalle: Documentacion deben ir primero en la interfaz y luego se replica en las subclases que la implementan
+
+================================================================================
+(5) Javadoc: 0 / 0.5
+
+(5.1) Falta readme: -0.5x1 = -0.5
+Detalle: README no es explicativo
+
+================================================================================
+(6) Resumen: 0 / 0.5
+
+================================================================================
+Adicionales: 0
+================================================================================
+
+Comentarios: nan
+Corrector: nan

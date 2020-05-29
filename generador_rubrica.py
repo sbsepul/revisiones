@@ -50,7 +50,7 @@ def excel_sheet(data, revision, nombre_alumno, nota) -> Tuple[str, str]:
             revision += f"\n{item}: {row[1]}"
         # Descuentos adicionales
         elif item == SEC_ADICIONALES:
-            revision += "\n" + "#" * 80 + f"\n{item}: {row[2]}\n" + "#" * 80 + "\n"
+            revision += "\n" + "=" * 80 + f"\n{item}: {row[2]}\n" + "=" * 80 + "\n"
         # Detalle de los descuentos
         elif index > 1 and row[2] != 0:
             if item == COVERAGE:
@@ -59,6 +59,7 @@ def excel_sheet(data, revision, nombre_alumno, nota) -> Tuple[str, str]:
             else:
                 item_count += 1
                 revision += f"\n({value_item}.{item_count}) {row[0]}: {row[1]}x{row[2]} = {row[3]}"
+                revision += f"\nDetalle: {row[4]}\n"
     if not nombre_alumno:
         print(f"Falta nombre del alumno en hoja {index+1}")
         #raise Exception("Falta nombre del alumno!!")
