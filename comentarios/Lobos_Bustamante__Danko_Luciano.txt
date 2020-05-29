@@ -1,0 +1,48 @@
+Alumno: Lobos_Bustamante__Danko_Luciano
+Nota: 5.2
+
+
+================================================================================
+(1) Funcionalidad: 1.3 / 1.5
+
+(1.1) Unidades muertas pueden atacar: -0.1x1 = -0.1
+Detalle: No hay test
+	 
+
+(1.2) Se puede atacar unidades muertas: -0.1x1 = -0.1
+Detalle: No hay test
+	 
+
+================================================================================
+(2) Diseño: 1.4 / 2.5
+
+(2.1) No utiliza double dispatch para decidir la cantidad de estrellas/victorias en caso de ganar un combate: -0.8x1 = -0.8
+Detalle: No aplica
+	 
+
+(2.2) Enemigos no comparten una interfaz o clase abstracta común (sepadara de player): -0.3x1 = -0.3
+Detalle: No aplica
+	 
+
+################################################################################
+(3) Código Fuente: 2.7 / 4
+################################################################################
+================================================================================
+(4) Coverage: 1 / 1
+
+================================================================================
+(5) Javadoc: 0.5 / 0.5
+
+================================================================================
+(6) Resumen: 0 / 0.5
+
+(6.1) Falta readme: -0.5x1 = -0.5
+Detalle: README no es explicativo
+	 
+
+================================================================================
+(7) Adicionales: 0
+================================================================================
+
+Comentarios: No aplica
+Corrector: No aplica

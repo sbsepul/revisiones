@@ -8,6 +8,9 @@ import os
 import pandas as pd
 from textwrap import wrap
 
+# for .gitignore
+DIRECTORY_OUTPUT = "output/"
+
 DIRECTORY_TEST = "files/"
 
 INDICE_NOMBRE_ALUMNO = 0
@@ -42,16 +45,23 @@ def excel_sheet(data, revision, nombre_alumno, nota) -> Tuple[str, str]:
         if item in SECCIONES:
             value_item = SECCIONES.index(item) + 1
             item_count = 0
-            revision += "\n" + "=" * 80 + f"\n({value_item}) {item}: {round(row[2], 2)} / {get_total(row[3])}\n"
+            if (item=="Código Fuente"):
+                revision += "\n" + "#" * 80 + f"\n({value_item}) {item}: {round(row[2], 2)} / {get_total(row[3])}\n" + "#" * 80    
+            else: 
+                revision += "\n" + "=" * 80 + f"\n({value_item}) {item}: {round(row[2], 2)} / {get_total(row[3])}\n"
         # Nota final
         elif item == NOTA:
             nota = f"{row[3]}"
         # Notas del corrector
         elif item in COMENTARIOS:
-            revision += f"\n{item}: {row[1]}"
+            if(pd.isna(row[1])):
+                revision += f"\n{item}: No aplica"
+            else:
+                revision += f"\n{item}: {row[1]}"
         # Descuentos adicionales
         elif item == SEC_ADICIONALES:
-            revision += "\n" + "=" * 80 + f"\n{item}: {row[2]}\n" + "=" * 80 + "\n"
+            value_item += 1
+            revision += "\n" + "=" * 80 + f"\n({value_item}) {item}: {row[2]}\n" + "=" * 80 + "\n"
         # Detalle de los descuentos
         elif index > 1 and row[2] != 0:
             if item == COVERAGE:
@@ -89,9 +99,10 @@ def excel_a_string(excel_filename: str):
     return revision_alumno
 
 if __name__ == '__main__':
-    if not os.path.exists(os.path.dirname(DIRECTORY_COMMENTS)):
+    path_dir = f"{DIRECTORY_OUTPUT}{DIRECTORY_COMMENTS}"
+    if not os.path.exists(os.path.dirname(path_dir)):
         try:
-            os.makedirs(os.path.dirname(DIRECTORY_COMMENTS))
+            os.makedirs(os.path.dirname(path_dir))
         except OSError as exc: # Guard against race condition
             if exc.errno != errno.EEXIST:
                 raise
@@ -99,6 +110,6 @@ if __name__ == '__main__':
     ALUMNOS = excel_a_string(concat_test_dir("Rubrica_T1.xlsx"))
     for alumno in ALUMNOS:
         NOMBRE_ALUMNO, REVISION = alumno
-        with open(f"{DIRECTORY_COMMENTS}Comentarios {NOMBRE_ALUMNO}.txt", "w+",
+        with open(f"{path_dir}{NOMBRE_ALUMNO}.txt", "w+",
                   encoding='utf-8') as comentarios_alumno:
             comentarios_alumno.write(REVISION)

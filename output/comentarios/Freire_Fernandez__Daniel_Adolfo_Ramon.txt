@@ -1,0 +1,73 @@
+Alumno: Freire_Fernandez__Daniel_Adolfo_Ramon
+Nota: 3.6
+
+
+================================================================================
+(1) Funcionalidad: 0.7 / 1.5
+
+(1.1) No se gana la cantidad correcta de estrellas tras ganar un combate: -0.3x1 = -0.3
+Detalle: Dado a que no hay Double Dispatch, no se siguen los
+	 requerimientos escritos en la entrega parcial 3
+
+(1.2) No se gana la cantidad correcta de victorias tras ganar un combate: -0.3x1 = -0.3
+Detalle: Dado a que no hay Double Dispatch, no se siguen los
+	 requerimientos escritos en la entrega parcial 3
+
+(1.3) Unidades muertas pueden atacar: -0.1x1 = -0.1
+Detalle: No hay test
+	 
+
+(1.4) Se puede atacar unidades muertas: -0.1x1 = -0.1
+Detalle: No hay test
+	 
+
+================================================================================
+(2) Diseño: 0 / 2.5
+
+(2.1) No utiliza double dispatch para decidir la cantidad de estrellas/victorias en caso de ganar un combate: -0.8x1 = -0.8
+Detalle: No aplica
+	 
+
+(2.2) No existe una interfaz para los paneles: -0.8x1 = -0.8
+Detalle: No aplica
+	 
+
+(2.3) No existe una interfaz para las unidades (players, wild y boss units): -0.6x1 = -0.6
+Detalle: No aplica
+	 
+
+(2.4) Usa clase abstracta como tipo: -0.4x1 = -0.4
+Detalle: No implementa interfaz, clase abstracta está obligada a ser
+	 ocupada como tipo
+
+(2.5) Enemigos no comparten una interfaz o clase abstracta común (sepadara de player): -0.3x1 = -0.3
+Detalle: No aplica
+	 
+
+################################################################################
+(3) Código Fuente: 0.7 / 4
+################################################################################
+================================================================================
+(4) Coverage: 1 / 1
+
+================================================================================
+(5) Javadoc: 0.5 / 0.5
+
+================================================================================
+(6) Resumen: 0.4 / 0.5
+
+(6.1) Falta readme: -0.5x0.2 = -0.1
+Detalle: Favor, en la proxima entrega ser más explicito en el README.
+	 Es la mejor manera de saber si se entendió el trabajo y
+	 empezar a revisar el código, con la idea de qué hace cada
+	 método. Te faltó explicar cómo implementaste el Double
+	 Dispatch, el ataque, la defensa y la evasión. Piensa que el
+	 README lo lee un compañere tuyo para comenzar desde donde tú
+	 quedaste
+
+================================================================================
+(7) Adicionales: 0
+================================================================================
+
+Comentarios: No aplica
+Corrector: Sebastian Sepulveda
