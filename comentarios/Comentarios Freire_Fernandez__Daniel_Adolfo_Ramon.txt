@@ -1,0 +1,64 @@
+Alumno: Freire_Fernandez__Daniel_Adolfo_Ramon
+Nota: 3.6
+================================================================================
+(1) Funcionalidad: 0.7 / 1.5
+
+(version 1)
+
+No se gana la cantidad correcta de estrellas tras ganar un combate: -0.3x1 = -0.3
+Detalle: jaslkdjdaklsjdakslñjdsañjdasñdsajdsañkj
+
+No se gana la cantidad correcta de victorias tras ganar un combate: -0.3x1 = -0.3
+Detalle: jaslkdjdaklsjdakslñjdsañjdasñdsajdsañkj
+
+Unidades muertas pueden atacar: -0.1x1 = -0.1
+Detalle: jaslkdjdaklsjdakslñjdsañjdasñdsajdsañkj
+
+Se puede atacar unidades muertas: -0.1x1 = -0.1
+Detalle: jaslkdjdaklsjdakslñjdsañjdasñdsajdsañkj
+
+================================================================================
+(2) Diseño: 0 / 2.5
+
+(version 2)
+
+(2.1) No utiliza double dispatch para decidir la cantidad de estrellas/victorias en caso de ganar un combate: -0.8x1 = -0.8
+(2.2) No existe una interfaz para los paneles: -0.8x1 = -0.8
+(2.3) No existe una interfaz para las unidades (players, wild y boss units): -0.6x1 = -0.6
+(2.4) Usa clase abstracta como tipo: -0.4x1 = -0.4
+(2.5) Enemigos no comparten una interfaz o clase abstracta común (sepadara de player): -0.3x1 = -0.3
+
+================================================================================
+(3) Código Fuente: 0.7 / 4
+    Detalle: kadsljdkasjdljajdksajdalskjñldasjkñldsajkldñsajdlksañjkldñasasdasdsa
+	dsajkldsajkldñsajdsalkñjdasñkljdasklñdsajklñdasjlkdsañjdsaklñjdsaklñjdsak
+	djasklhdsjalkhasjklhdsajkldsahjkldashjksaldhdjsaklhdsajkldshajkldsahjkldk
+================================================================================
+(4) Coverage: 1 / 1
+    Detalle: kadsljdkasjdljajdksajdalskjñldasjkñldsajkldñsajdlksañjkldñasasdasdsa
+	dsajkldsajkldñsajdsalkñjdasñkljdasklñdsajklñdasjlkdsañjdsaklñjdsaklñjdsak
+	djasklhdsjalkhasjklhdsajkldsahjkldashjksaldhdjsaklhdsajkldshajkldsahjkldk
+================================================================================
+(5) Javadoc: 0.5 / 0.5
+    Detalle: kadsljdkasjdljajdksajdalskjñldasjkñldsajkldñsajdlksañjkldñasasdasdsa
+	dsajkldsajkldñsajdsalkñjdasñkljdasklñdsajklñdasjlkdsañjdsaklñjdsaklñjdsak
+	djasklhdsjalkhasjklhdsajkldsahjkldashjksaldhdjsaklhdsajkldshajkldsahjkldk
+================================================================================
+(6) Falta readme: -0.5x0.2 = -0.1
+    Detalle: kadsljdkasjdljajdksajdalskjñldasjkñldsajkldñsajdlksañjkldñasasdasdsa
+	dsajkldsajkldñsajdsalkñjdasñkljdasklñdsajklñdasjlkdsañjdsaklñjdsaklñjdsak
+	djasklhdsjalkhasjklhdsajkldsahjkldashjksaldhdjsaklhdsajkldshajkldsahjkldk
+================================================================================
+(7) Resumen: 0.4 / 0.5
+    Detalle: kadsljdkasjdljajdksajdalskjñldasjkñldsajkldñsajdlksañjkldñasasdasdsa
+	dsajkldsajkldñsajdsalkñjdasñkljdasklñdsajklñdasjlkdsañjdsaklñjdsaklñjdsak
+	djasklhdsjalkhasjklhdsajkldsahjkldashjksaldhdjsaklhdsajkldshajkldsahjkldk
+================================================================================
+(8) Adicionales: 0
+    Detalle: kadsljdkasjdljajdksajdalskjñldasjkñldsajkldñsajdlksañjkldñasasdasdsa
+	dsajkldsajkldñsajdsalkñjdasñkljdasklñdsajklñdasjlkdsañjdsaklñjdsaklñjdsak
+	djasklhdsjalkhasjklhdsajkldsahjkldashjksaldhdjsaklhdsajkldshajkldsahjkldk
+================================================================================
+
+Comentarios adicionales: No aplica
+Corrector: Sebastian Sepulveda

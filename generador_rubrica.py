@@ -7,45 +7,49 @@ from pathlib import Path
 import os
 import pandas as pd
 
+DIRECTORY_TEST = "files/"
+
 INDICE_NOMBRE_ALUMNO = 0
-SUBSEC_CODIGO_FUENTE = ("Funcionalidad", "Diseño")
-SECCIONES = ("Código Fuente", "Coverage", "Javadoc", "Resumen")
+SECCIONES = ("Funcionalidad", "Diseño", "Código Fuente", "Coverage", "Javadoc", "Resumen", "Adicionales")
 NOTA = "Nota"
 COMENTARIOS = ("Comentarios", "Corrector")
-SEC_ADICIONALES = "Adicionales"
 COVERAGE = "Porcentaje de coverage"
 ROOT = Path(os.path.dirname(os.path.realpath(__file__)))
 DIRECTORY_COMMENTS = "comentarios/"
+
+
+def concat_test_dir(file):
+    return f"{DIRECTORY_TEST}{file}"
 
 def get_total(puntaje: str):
     """ Borra el substring `Total: ` del puntaje """
     return puntaje.replace("Total: ", "").replace(",", ".")
 
+def excel_sheet(data, revision, nombre_alumno, nota) -> Tuple[str, str]:
+    """ Convierte la rúbrica a una tupla fácil de pasar a un archivo .txt
 
-def excel_sheet(data, revision, nombre_alumno, nota):
-    #print(data.head())
+    :param excel_filename: el nombre del excel con la rúbrica
+    :return: una tupla con el nombre del alumno y los comentarios de revisión
+    """
     for index, row in data.iterrows():
         if index == INDICE_NOMBRE_ALUMNO:
             nombre_alumno = f"{row[1]}"
         item = row[0]
 
         # Puntajes totales de las subsecciones
-        if item in SUBSEC_CODIGO_FUENTE:
-            revision += "\n" + "=" * 80 + f"\n{item}: {round(row[2], 2)} / {get_total(row[3])}\n" \
+        if item in SECCIONES:
+            value_item = SECCIONES.index(item) + 1
+            if (value_item == len(SECCIONES) + 1):
+                revision += "\n" + "=" * 80 + f"\n{item}: {round(row[2], 2)} / {get_total(row[3])}\n" \
                         + "=" * 80 + "\n"
-        # Puntajes totales de las secciones
-        elif item in SECCIONES:
-            revision += "\n" + "#" * 80 + f"\n{item}: {row[2]} / {get_total(row[3])}\n" \
-                        + "#" * 80 + "\n"
+            else:
+                revision += "\n" + "=" * 80 + f"\n{item}: {round(row[2], 2)} / {get_total(row[3])}\n"
         # Nota final
         elif item == NOTA:
             nota = f"{row[3]}"
         # Notas del corrector
         elif item in COMENTARIOS:
             revision += f"\n{item}: {row[1]}"
-        # Descuentos adicionales
-        elif item == SEC_ADICIONALES:
-            revision += "\n" + "#" * 80 + f"\n{item}: {row[2]}\n" + "#" * 80 + "\n"
         # Detalle de los descuentos
         elif index > 1 and row[2] != 0:
             if item == COVERAGE:
@@ -58,15 +62,12 @@ def excel_sheet(data, revision, nombre_alumno, nota):
     return nombre_alumno, f"Alumno: {nombre_alumno}\nNota: {nota}\n\n{revision}"
 
 
-def excel_a_string(excel_filename: str) -> Tuple[str, str]:
-    """ Convierte la rúbrica a una tupla fácil de pasar a un archivo .txt
-
-    :param excel_filename: el nombre del excel con la rúbrica
-    :return: una tupla con el nombre del alumno y los comentarios de revisión
+def excel_a_string(excel_filename: str):
     """
-    
+       Lee cada hoja del excel de Rubrica para devolver una lista de tuplas
+       las cuales permiten redactar un archivo txt por cada alumno
+    """
     revision_alumno = []
-    a = pd.read_excel(excel_filename, header=None)
     xl = pd.ExcelFile(excel_filename)
     for sheet in xl.sheet_names:
         revision = ""
@@ -76,9 +77,6 @@ def excel_a_string(excel_filename: str) -> Tuple[str, str]:
         nombre_alumno, revision = excel_sheet(df, revision, nombre_alumno, nota)
         revision_alumno.append([nombre_alumno, revision])
     return revision_alumno
-    '''
-    
-    '''
 
 if __name__ == '__main__':
     if not os.path.exists(os.path.dirname(DIRECTORY_COMMENTS)):
@@ -88,7 +86,7 @@ if __name__ == '__main__':
             if exc.errno != errno.EEXIST:
                 raise
 
-    ALUMNOS = excel_a_string(f"Rubrica_T1.xlsx")
+    ALUMNOS = excel_a_string(concat_test_dir("Rubrica_T1.xlsx"))
     for alumno in ALUMNOS:
         NOMBRE_ALUMNO, REVISION = alumno
         with open(f"{DIRECTORY_COMMENTS}Comentarios {NOMBRE_ALUMNO}.txt", "w+",

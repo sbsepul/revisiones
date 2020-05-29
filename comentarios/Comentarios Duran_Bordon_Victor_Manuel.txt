@@ -1,0 +1,43 @@
+Alumno: Duran_Bordon_Victor_Manuel
+Nota: 4.7
+
+
+No se consideran los stats de ATK, DEF y EVD en el combate: -0.4x1 = -0.4
+No se gana la cantidad correcta de estrellas tras ganar un combate: -0.3x1 = -0.3
+No se gana la cantidad correcta de victorias tras ganar un combate: -0.3x1 = -0.3
+Unidades muertas pueden atacar: -0.1x1 = -0.1
+Se puede atacar unidades muertas: -0.1x1 = -0.1
+================================================================================
+Funcionalidad: 0.3 / 1.5
+================================================================================
+
+No utiliza double dispatch para decidir la cantidad de estrellas/victorias en caso de ganar un combate: -0.8x0.5 = -0.4
+Enemigos no comparten una interfaz o clase abstracta común (sepadara de player): -0.3x1 = -0.3
+================================================================================
+Diseño: 1.8 / 2.5
+================================================================================
+
+################################################################################
+Código Fuente: 2.1 / 4
+################################################################################
+
+################################################################################
+Coverage: 1 / 1
+################################################################################
+
+################################################################################
+Javadoc: 0.5 / 0.5
+################################################################################
+
+Falta readme: -0.5x1 = -0.5
+################################################################################
+Resumen: 0 / 0.5
+################################################################################
+
+Cumple con entregas parciales (se pondera por la cantidad realizada, en caso de haber realizado las 3 se pondera por 4): 0.1x1 = 0.1
+################################################################################
+Adicionales: 0.1
+################################################################################
+
+Comentarios: nan
+Corrector: nan
