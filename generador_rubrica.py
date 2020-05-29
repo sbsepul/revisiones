@@ -16,7 +16,7 @@ NOTA = "Nota"
 COMENTARIOS = ("Comentarios", "Corrector")
 COVERAGE = "Porcentaje de coverage"
 ROOT = Path(os.path.dirname(os.path.realpath(__file__)))
-DIRECTORY_COMMENTS = "comentarios_nuevos/"
+DIRECTORY_COMMENTS = "comentarios/"
 SEC_ADICIONALES = "Adicionales"
 
 
