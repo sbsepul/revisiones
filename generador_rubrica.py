@@ -36,6 +36,7 @@ def excel_sheet(data, revision, nombre_alumno, nota) -> Tuple[str, str]:
     :param excel_filename: el nombre del excel con la rúbrica
     :return: una tupla con el nombre del alumno y los comentarios de revisión
     """
+    value_item = 0
     for index, row in data.iterrows():
         if index == INDICE_NOMBRE_ALUMNO:
             nombre_alumno = f"{row[1]}"
@@ -43,10 +44,11 @@ def excel_sheet(data, revision, nombre_alumno, nota) -> Tuple[str, str]:
 
         # Puntajes totales de las subsecciones
         if item in SECCIONES:
-            value_item = SECCIONES.index(item) + 1
+            value_item += 1
             item_count = 0
             if (item=="Código Fuente"):
-                revision += "\n" + "#" * 80 + f"\n({value_item}) {item}: {round(row[2], 2)} / {get_total(row[3])}\n" + "#" * 80    
+                value_item -=1
+                revision += "\n" + "#" * 80 + f"\n ↑↑↑ (Total items anteriores) {item}: {round(row[2], 2)} / {get_total(row[3])} ↑↑↑\n" + "#" * 80    
             else: 
                 revision += "\n" + "=" * 80 + f"\n({value_item}) {item}: {round(row[2], 2)} / {get_total(row[3])}\n"
         # Nota final
@@ -55,13 +57,14 @@ def excel_sheet(data, revision, nombre_alumno, nota) -> Tuple[str, str]:
         # Notas del corrector
         elif item in COMENTARIOS:
             if(pd.isna(row[1])):
-                revision += f"\n{item}: No aplica"
+                revision += "#" * 80 +  f"\n{item}: No aplica"
             else:
                 revision += f"\n{item}: {row[1]}"
         # Descuentos adicionales
         elif item == SEC_ADICIONALES:
             value_item += 1
-            revision += "\n" + "=" * 80 + f"\n({value_item}) {item}: {row[2]}\n" + "=" * 80 + "\n"
+            item_count = 0
+            revision += "\n" + "=" * 80 + f"\n\n({value_item}) {item}: {row[2]}\n"
         # Detalle de los descuentos
         elif index > 1 and row[2] != 0:
             if item == COVERAGE:
