@@ -15,7 +15,7 @@ NOTA = "Nota"
 COMENTARIOS = ("Comentarios", "Corrector")
 COVERAGE = "Porcentaje de coverage"
 ROOT = Path(os.path.dirname(os.path.realpath(__file__)))
-DIRECTORY_COMMENTS = "comentarios/"
+DIRECTORY_COMMENTS = "comentarios_nuevos/"
 
 
 def concat_test_dir(file):
@@ -39,10 +39,12 @@ def excel_sheet(data, revision, nombre_alumno, nota) -> Tuple[str, str]:
         # Puntajes totales de las subsecciones
         if item in SECCIONES:
             value_item = SECCIONES.index(item) + 1
+            item_count = 0
             if (value_item == len(SECCIONES) + 1):
-                revision += "\n" + "=" * 80 + f"\n{item}: {round(row[2], 2)} / {get_total(row[3])}\n" \
+                revision += "\n" + "=" * 80 + f"\n({value_item}) {item}: {round(row[2], 2)} / {get_total(row[3])}\n" \
                         + "=" * 80 + "\n"
             else:
+                print(item)
                 revision += "\n" + "=" * 80 + f"\n{item}: {round(row[2], 2)} / {get_total(row[3])}\n"
         # Nota final
         elif item == NOTA:
@@ -56,9 +58,11 @@ def excel_sheet(data, revision, nombre_alumno, nota) -> Tuple[str, str]:
                 if row[3] != 0:
                     revision += f"\n{item}: {row[2] * 100}% = {row[3]}"
             else:
-                revision += f"\n{row[0]}: {row[1]}x{row[2]} = {row[3]}"
+                item_count += 1
+                revision += f"\n({value_item}.{item_count}) {row[0]}: {row[1]}x{row[2]} = {row[3]}"
     if not nombre_alumno:
-        raise Exception("Falta nombre del alumno!!")
+        print(f"Falta nombre del alumno en hoja {index+1}")
+        #raise Exception("Falta nombre del alumno!!")
     return nombre_alumno, f"Alumno: {nombre_alumno}\nNota: {nota}\n\n{revision}"
 
 
