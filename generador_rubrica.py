@@ -10,12 +10,13 @@ import pandas as pd
 DIRECTORY_TEST = "files/"
 
 INDICE_NOMBRE_ALUMNO = 0
-SECCIONES = ("Funcionalidad", "Diseño", "Código Fuente", "Coverage", "Javadoc", "Resumen", "Adicionales")
+SECCIONES = ("Funcionalidad", "Diseño", "Código Fuente", "Coverage", "Javadoc", "Resumen")
 NOTA = "Nota"
 COMENTARIOS = ("Comentarios", "Corrector")
 COVERAGE = "Porcentaje de coverage"
 ROOT = Path(os.path.dirname(os.path.realpath(__file__)))
 DIRECTORY_COMMENTS = "comentarios_nuevos/"
+SEC_ADICIONALES = "Adicionales"
 
 
 def concat_test_dir(file):
@@ -40,18 +41,16 @@ def excel_sheet(data, revision, nombre_alumno, nota) -> Tuple[str, str]:
         if item in SECCIONES:
             value_item = SECCIONES.index(item) + 1
             item_count = 0
-            if (value_item == len(SECCIONES) + 1):
-                revision += "\n" + "=" * 80 + f"\n({value_item}) {item}: {round(row[2], 2)} / {get_total(row[3])}\n" \
-                        + "=" * 80 + "\n"
-            else:
-                print(item)
-                revision += "\n" + "=" * 80 + f"\n{item}: {round(row[2], 2)} / {get_total(row[3])}\n"
+            revision += "\n" + "=" * 80 + f"\n({value_item}) {item}: {round(row[2], 2)} / {get_total(row[3])}\n"
         # Nota final
         elif item == NOTA:
             nota = f"{row[3]}"
         # Notas del corrector
         elif item in COMENTARIOS:
             revision += f"\n{item}: {row[1]}"
+        # Descuentos adicionales
+        elif item == SEC_ADICIONALES:
+            revision += "\n" + "#" * 80 + f"\n{item}: {row[2]}\n" + "#" * 80 + "\n"
         # Detalle de los descuentos
         elif index > 1 and row[2] != 0:
             if item == COVERAGE:
