@@ -60,18 +60,17 @@ headers = {
 }
 
 login_data = {
-'commit': 'Sign in',
-'utf8': '%E2%9C%93',
-'login': input('Username: '),
-'password': getpass()
+	'commit': 'Sign in',
+	'utf8': '%E2%9C%93',
+	'login': input('Username: '),
+	'password': getpass()
 }
 url = 'https://github.com/session'
 session = requests.Session()
 response = session.get(url, headers=headers)
 
 soup = BeautifulSoup(response.text, 'html5lib')
-login_data['authenticity_token'] = soup.find(
-'input', attrs={'name': 'authenticity_token'})['value']
+login_data['authenticity_token'] = soup.find('input', attrs={'name': 'authenticity_token'})['value']
 response = session.post(url, data=login_data, headers=headers)
 #print(response.status_code)
 response = session.get('https://github.com', headers=headers)
@@ -86,3 +85,4 @@ for full_path, link in github_links.items():
 	if (response.status_code==200):
 		open(f'{full_path}master_project.zip', 'wb').write(response.content)
 		print(f"file {contador+1} downloaded")
+		contador+=1

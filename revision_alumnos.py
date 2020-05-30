@@ -21,6 +21,9 @@ from os import listdir
 # for .gitignore
 DIRECTORY_OUTPUT = "output/"
 
+'''
+Crea los argumentos que se utilizarán
+'''
 def get_args():
 	parser = argparse.ArgumentParser(description='Unzip in directories the files in zip.')
 	parser.add_argument('file', help='file zip that will be unzippped')
@@ -47,7 +50,6 @@ def create_dir(path):
 
 '''
 Descomprime un zip y por cada archivo crea un directorio con el nombre del archivo
-
 '''
 def unzip_file(file_zip, dir_out, dir_in):
 	dirout = dir_out if(dir_out) else f"{DIRECTORY_OUTPUT}archivos_{file_zip}/"
@@ -64,6 +66,7 @@ def unzip_file(file_zip, dir_out, dir_in):
 def unzip_in_drectory(file_zip, directory_main):
 	dir_all_students = f"{DIRECTORY_OUTPUT}{directory_main}"
 	directories = [f for f in listdir(dir_all_students)]
+	no_files = 0
 	for student_dir in directories:
 		check_student = False
 		full_path = f"{dir_all_students}/{student_dir}/"
@@ -77,7 +80,10 @@ def unzip_in_drectory(file_zip, directory_main):
 				except:
 					next
 		if(not check_student):
-			print(f"{student_dir[:-1]} falta")
+			print(f"{student_dir[:-1]} no se le descargó archivo")
+			no_files += 1
+	print(f"Hay {no_files} alumnos que no se les descargó archivo")
+
 
 if __name__ == '__main__':
 	args = get_args()

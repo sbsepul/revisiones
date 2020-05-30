@@ -10,8 +10,11 @@ from textwrap import wrap
 
 # for .gitignore
 DIRECTORY_OUTPUT = "output/"
-
 DIRECTORY_TEST = "files/"
+
+# Rubrica de revision
+RUBRICA = "Rubrica_T1.xlsx"
+
 
 INDICE_NOMBRE_ALUMNO = 0
 SECCIONES = ("Funcionalidad", "Diseño", "Código Fuente", "Coverage", "Javadoc", "Resumen")
@@ -110,7 +113,7 @@ if __name__ == '__main__':
             if exc.errno != errno.EEXIST:
                 raise
 
-    ALUMNOS = excel_a_string(concat_test_dir("Rubrica_T1.xlsx"))
+    ALUMNOS = excel_a_string(concat_test_dir(RUBRICA))
     for alumno in ALUMNOS:
         NOMBRE_ALUMNO, REVISION = alumno
         with open(f"{path_dir}{NOMBRE_ALUMNO}.txt", "w+",

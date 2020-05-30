@@ -17,13 +17,15 @@ python revision_alumno archivo_pdfs.zip		# archivo_pdfs es un ejemplo depende de
 
 `generador_rubrica.py`:
 
-```
+```bash
 python generador_rubrica.py 
 ```
 
+En una futura modificación se le puede agregar que reciba el nombre del archivo de rubrica como argumento.
+
 `read_pdf.py`:
 
-Ejecutar despues de:
+Ejecutar después de:
 
 ```bash
 python revision_alumno archivo_pdfs.zip
