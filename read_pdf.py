@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 import urllib.request # download files
 
-OUTPUT = "output/archivos_Tarea_1/"
+OUTPUT = "output/archivos_Tarea_2/"
 
 def read_pdf(file_pdf):
 	PDFFile = open(file_pdf,'rb')

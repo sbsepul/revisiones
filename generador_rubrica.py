@@ -3,6 +3,7 @@ Modulo que transforma la rúbrica en excel en un formato fácil de pasar a u-cur
 """
 from typing import Tuple
 from pathlib import Path
+import argparse
 
 import os
 import pandas as pd
@@ -12,9 +13,24 @@ from textwrap import wrap
 DIRECTORY_OUTPUT = "output/"
 DIRECTORY_TEST = "files/"
 
+DIRECTORY_COMMENTS = "comentarios/"
 # Rubrica de revision
-RUBRICA = "Rubrica_T1.xlsx"
+RUBRICA = "Rubrica_T2_mod"
 
+'''
+Crea los argumentos que se utilizarán
+'''
+def get_args():
+	parser = argparse.ArgumentParser(description='Write the rubrica with comments in txt files')
+	parser.add_argument('file', default=RUBRICA, 
+						help='file that contain the Rubrica')
+	parser.add_argument('--dir_out', default=DIRECTORY_OUTPUT,
+                    help='directory output where zip that will be unzippped')
+	parser.add_argument('--dir_comment', default=DIRECTORY_COMMENTS,
+                    help='directory output comments')
+	parser.add_argument('--dir_in', default=DIRECTORY_TEST,
+                    help='directory input where is the file zip')
+	return parser.parse_args()
 
 INDICE_NOMBRE_ALUMNO = 0
 SECCIONES = ("Funcionalidad", "Diseño", "Código Fuente", "Coverage", "Javadoc", "Resumen")
@@ -22,7 +38,6 @@ NOTA = "Nota"
 COMENTARIOS = ("Comentarios", "Corrector")
 COVERAGE = "Porcentaje de coverage"
 ROOT = Path(os.path.dirname(os.path.realpath(__file__)))
-DIRECTORY_COMMENTS = "comentarios/"
 SEC_ADICIONALES = "Adicionales"
 
 
@@ -51,9 +66,9 @@ def excel_sheet(data, revision, nombre_alumno, nota) -> Tuple[str, str]:
             item_count = 0
             if (item=="Código Fuente"):
                 value_item -=1
-                revision += "\n" + "#" * 80 + f"\n ↑↑↑ (Total items anteriores) {item}: {round(row[2], 2)} / {get_total(row[3])} ↑↑↑\n" + "#" * 80    
+                revision += "\n" + "-" * 80 + f"\n(Total) {item}: {round(row[2], 2)} / {get_total(row[3])} \n" + "-" * 80 + "\n"  
             else: 
-                revision += "\n" + "=" * 80 + f"\n({value_item}) {item}: {round(row[2], 2)} / {get_total(row[3])}\n"
+                revision += "=" * 80 + f"\n({value_item}) {item}: {round(row[2], 2)} / {get_total(row[3])}\n"
         # Nota final
         elif item == NOTA:
             nota = f"{row[3]}"
@@ -72,8 +87,8 @@ def excel_sheet(data, revision, nombre_alumno, nota) -> Tuple[str, str]:
         elif index > 1 and row[2] != 0:
             if item == COVERAGE:
                 if row[3] != 0:
-                    revision += f"\n{item}: {row[2] * 100}% = {row[3]}"
-            else:
+                    revision += f"\n{item}: {row[2] * 100}% = {row[3]}\n"
+            elif (not pd.isna(row[0])):
                 item_count += 1
                 revision += f"\n({value_item}.{item_count}) {row[0]}: {row[1]}x{row[2]} = {row[3]}"
                 if (not pd.isna(row[4])):
@@ -105,7 +120,8 @@ def excel_a_string(excel_filename: str):
     return revision_alumno
 
 if __name__ == '__main__':
-    path_dir = f"{DIRECTORY_OUTPUT}{DIRECTORY_COMMENTS}"
+    args = get_args()
+    path_dir = f"{args.dir_out}{args.dir_comment}"
     if not os.path.exists(os.path.dirname(path_dir)):
         try:
             os.makedirs(os.path.dirname(path_dir))
@@ -113,7 +129,7 @@ if __name__ == '__main__':
             if exc.errno != errno.EEXIST:
                 raise
 
-    ALUMNOS = excel_a_string(concat_test_dir(RUBRICA))
+    ALUMNOS = excel_a_string(concat_test_dir(f"{args.file}.xlsx"))
     for alumno in ALUMNOS:
         NOMBRE_ALUMNO, REVISION = alumno
         with open(f"{path_dir}{NOMBRE_ALUMNO}.txt", "w+",
